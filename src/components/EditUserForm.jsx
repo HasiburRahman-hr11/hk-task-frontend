@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
@@ -11,9 +11,9 @@ import Select from "@mui/material/Select";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import CircularProgress from '@mui/material/CircularProgress'
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
-import {successNotify, errorNotify} from '../utils/toastify';
+import { successNotify, errorNotify } from "../utils/toastify";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,14 +35,16 @@ function getStyles(name, sectors, theme) {
   };
 }
 
-const NewForm = ({ allSectors }) => {
+const EditUserForm = ({ user, setUser, allSectors }) => {
   const theme = useTheme();
-  const [name, setname] = useState("");
-  const [sectors, setSectors] = useState([]);
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [name, setname] = useState(user?.name || "");
+  const [sectors, setSectors] = useState(user?.sectors || []);
+  const [termsAccepted, setTermsAccepted] = useState(
+    user?.termsAccepted || false
+  );
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(() => {
     const isFormFilled = () => {
@@ -68,28 +70,27 @@ const NewForm = ({ allSectors }) => {
       sectors,
       termsAccepted,
     };
-    if(!name && sectors.length === 0 && !termsAccepted){
-      errorNotify('Fill The Form Correctly!');
+    if (!name && sectors.length === 0 && !termsAccepted) {
+      errorNotify("Fill The Form Correctly!");
       return;
     }
-
     setIsSubmitting(true);
     try {
-      const { data } = await axios.post(
-        "http://localhost:8000/user/add-new",
+      const { data } = await axios.put(
+        `http://localhost:8000/user/update/${params.userId}`,
         formData
       );
 
       if (data) {
         console.log(data);
         setIsSubmitting(false);
-        navigate(`/user/${data._id}`);
-        successNotify('Form Submitted Successfully.')
+        setUser(data);
+        successNotify("Updated Successfully.");
       }
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);
-      errorNotify('Something Went Wrong');
+      errorNotify("Something Went Wrong");
     }
   };
   return (
@@ -128,7 +129,7 @@ const NewForm = ({ allSectors }) => {
             MenuProps={MenuProps}
             fullWidth
           >
-            {allSectors.map((sector) => (
+            {allSectors.map((sector, index) => (
               <MenuItem
                 key={sector?._id}
                 value={sector?.value}
@@ -159,19 +160,25 @@ const NewForm = ({ allSectors }) => {
           disabled={btnDisabled}
           onClick={handleSubmit}
           sx={{
-            width:'110px',
-            height:'40px'
+            width: "110px",
+            height: "40px",
           }}
         >
-          {isSubmitting ? <CircularProgress sx={{
-            color:'#fff',
-            width:'23px !important',
-            height:'23px !important'
-          }} /> : 'Submit'}
+          {isSubmitting ? (
+            <CircularProgress
+              sx={{
+                color: "#fff",
+                width: "23px !important",
+                height: "23px !important",
+              }}
+            />
+          ) : (
+            "Update"
+          )}
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default NewForm;
+export default EditUserForm;
