@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import {Link} from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -21,8 +22,14 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Header
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign:'center' }}>
+              <Link to="/" style={{
+                color:'#fff',
+                textDecoration:'none'
+              }} >
+              Home
+              </Link>
+              
             </Typography>
           </Toolbar>
         </AppBar>
