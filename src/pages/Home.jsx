@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import NewForm from "../components/NewForm";
+import AddUserForm from "../components/AddUserForm";
 import axios from "axios";
 import Loading from "../components/Loading";
 
@@ -37,7 +37,6 @@ const Home = () => {
               component="h2"
               sx={{
                 textAlign: "center",
-                mb: "3rem",
                 mt: "2rem",
                 fontSize: {
                   md: "3rem",
@@ -45,9 +44,16 @@ const Home = () => {
                 },
               }}
             >
-              Please Feel The From Below
+              Please Feel The From
             </Typography>
-            <NewForm allSectors={allSectors} />
+            <Typography variant="p" component="p" sx={{
+              fontSize:'13px',
+              color:'#666',
+              mb:'3rem',
+              textAlign: "center",
+            }} >Required Fields Are Marked
+            </Typography>
+            <AddUserForm allSectors={allSectors} />
           </Container>
         )}
       </Box>

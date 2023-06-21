@@ -53,7 +53,6 @@ const EditUser = () => {
               component="h2"
               sx={{
                 textAlign: "center",
-                mb: "3rem",
                 mt: "2rem",
                 fontSize: {
                   md: "3rem",
@@ -62,6 +61,13 @@ const EditUser = () => {
               }}
             >
               Edit User Page
+            </Typography>
+            <Typography variant="p" component="p" sx={{
+              fontSize:'13px',
+              color:'#666',
+              mb:'3rem',
+              textAlign: "center",
+            }} >Required Fields Are Marked
             </Typography>
             <EditUserForm user={user} setUser={setUser} allSectors={allSectors} />
           </Container>

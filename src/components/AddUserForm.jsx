@@ -35,7 +35,7 @@ function getStyles(name, sectors, theme) {
   };
 }
 
-const NewForm = ({ allSectors }) => {
+const AddUserForm = ({ allSectors }) => {
   const theme = useTheme();
   const [name, setname] = useState("");
   const [sectors, setSectors] = useState([]);
@@ -81,7 +81,6 @@ const NewForm = ({ allSectors }) => {
       );
 
       if (data) {
-        console.log(data);
         setIsSubmitting(false);
         navigate(`/user/${data._id}`);
         successNotify('Form Submitted Successfully.')
@@ -98,7 +97,10 @@ const NewForm = ({ allSectors }) => {
       sx={{
         maxWidth: "400px",
         margin: "0 auto",
-        padding: "3rem 3rem",
+        padding: {
+          sm:"3rem 3rem",
+          xs:"1rem 1rem"
+        },
         borderRadius: "10px",
         background: "#fff",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
@@ -174,4 +176,4 @@ const NewForm = ({ allSectors }) => {
   );
 };
 
-export default NewForm;
+export default AddUserForm;

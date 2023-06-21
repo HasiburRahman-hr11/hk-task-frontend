@@ -82,7 +82,6 @@ const EditUserForm = ({ user, setUser, allSectors }) => {
       );
 
       if (data) {
-        console.log(data);
         setIsSubmitting(false);
         setUser(data);
         successNotify("Updated Successfully.");
@@ -99,7 +98,10 @@ const EditUserForm = ({ user, setUser, allSectors }) => {
       sx={{
         maxWidth: "400px",
         margin: "0 auto",
-        padding: "3rem 3rem",
+        padding: {
+          sm:"3rem 3rem",
+          xs:"1rem 1rem"
+        },
         borderRadius: "10px",
         background: "#fff",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
@@ -176,6 +178,7 @@ const EditUserForm = ({ user, setUser, allSectors }) => {
             "Update"
           )}
         </Button>
+            
       </Box>
     </Box>
   );
